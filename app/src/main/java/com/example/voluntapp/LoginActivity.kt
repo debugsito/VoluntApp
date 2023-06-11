@@ -14,7 +14,7 @@ class LoginActivity : AppCompatActivity() {
         val btnRegistroOrganizacion: Button = findViewById(R.id.btnRegistroOrganizacion)
 
         btnLogin.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, PrincipalActivity::class.java)
             startActivity(intent)
         }
         btnRegistroVoluntario.setOnClickListener {

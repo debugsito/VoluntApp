@@ -14,7 +14,7 @@ class RegistroOrganizacion : AppCompatActivity() {
         val btnRegisterRO: Button = findViewById(R.id.btnRegisterRO)
 
         btnBackRO.setOnClickListener{
-            val intent = Intent(this, LoginActivity::class.java)
+            val intent = Intent(this, PrincipalActivity::class.java)
             startActivity(intent)
         }
         btnRegisterRO.setOnClickListener{

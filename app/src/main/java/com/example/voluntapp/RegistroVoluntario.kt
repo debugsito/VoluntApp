@@ -14,7 +14,7 @@ class RegistroVoluntario : AppCompatActivity() {
         val btnRegisterRV: Button = findViewById(R.id.btnRegisterRv)
 
         btnBackRV.setOnClickListener{
-            val intent = Intent(this, LoginActivity::class.java)
+            val intent = Intent(this, PrincipalActivity::class.java)
             startActivity(intent)
         }
         btnRegisterRV.setOnClickListener{
