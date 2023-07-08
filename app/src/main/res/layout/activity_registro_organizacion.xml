@@ -40,7 +40,7 @@
                 android:text="RUC" />
 
             <EditText
-                android:id="@+id/editTextText4"
+                android:id="@+id/etRUC"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -61,7 +61,7 @@
                 android:text="Razón Social" />
 
             <EditText
-                android:id="@+id/editTextText3"
+                android:id="@+id/etRazonSocial"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -82,7 +82,7 @@
                 android:text="Representante" />
 
             <EditText
-                android:id="@+id/editTextText5"
+                android:id="@+id/etRepresentante"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -102,7 +102,7 @@
                 android:text="Correo" />
 
             <EditText
-                android:id="@+id/editTextText6"
+                android:id="@+id/etEmailOr"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -122,7 +122,7 @@
                 android:text="Contraseña" />
 
             <EditText
-                android:id="@+id/editTextText7"
+                android:id="@+id/etPasswordOr"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -139,7 +139,7 @@
             android:text="Reseña de la organización" />
 
         <EditText
-            android:id="@+id/editTextText8"
+            android:id="@+id/etResenaOr"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"

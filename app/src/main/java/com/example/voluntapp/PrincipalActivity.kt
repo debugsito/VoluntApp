@@ -3,7 +3,7 @@ package com.example.voluntapp
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
-import com.google.android.material.snackbar.Snackbar
+import android.widget.TextView
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -44,6 +44,7 @@ class PrincipalActivity : AppCompatActivity() {
                 R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow
             ), drawerLayout
         )
+
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
     }
@@ -51,6 +52,13 @@ class PrincipalActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.principal, menu)
+        val userModel = MySharedPreferences.getUserModel()
+        val tvUser: TextView = findViewById(R.id.tvNameUser)
+        val tvEmail: TextView = findViewById(R.id.tvEmailUser)
+        if (userModel != null) {
+            tvUser.text = userModel.name
+            tvEmail.text = userModel.email
+        }
         return true
     }
 

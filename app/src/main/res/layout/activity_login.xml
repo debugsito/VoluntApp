@@ -23,13 +23,13 @@
             android:text="VoluntApp" />
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/tvEmailUser"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Usuario" />
 
         <EditText
-            android:id="@+id/editTextText"
+            android:id="@+id/etUser"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -42,7 +42,7 @@
             android:text="Contraseña" />
 
         <EditText
-            android:id="@+id/editTextTextPassword"
+            android:id="@+id/etPasswordLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
