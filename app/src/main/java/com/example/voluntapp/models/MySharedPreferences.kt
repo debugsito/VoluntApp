@@ -21,4 +21,8 @@ object MySharedPreferences {
                 val json = sharedPreferences.getString("userModel", null)
                 return gson.fromJson(json, UserModel::class.java)
         }
+
+        fun clearSharedPreferences() {
+                sharedPreferences.edit().clear().apply()
+        }
 }

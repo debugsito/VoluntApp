@@ -19,6 +19,17 @@ class LoginActivity : AppCompatActivity() {
         MySharedPreferences.init(sharedPreferences)
 
         setContentView(R.layout.activity_login)
+
+        val userModel = MySharedPreferences.getUserModel()
+
+
+        if (userModel != null) {
+            println("valorperfil"+userModel.perfil)
+            val intent = Intent(this, PrincipalActivity::class.java)
+            startActivity(intent)
+        }
+
+
         val btnLogin: Button = findViewById(R.id.btnLogin)
         val btnRegistroVoluntario: Button = findViewById(R.id.btnRegistroVoluntario)
         val btnRegistroOrganizacion: Button = findViewById(R.id.btnRegistroOrganizacion)

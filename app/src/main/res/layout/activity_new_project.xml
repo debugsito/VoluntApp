@@ -31,7 +31,7 @@
             android:text="Ingrese un título" />
 
         <EditText
-            android:id="@+id/editTextText2"
+            android:id="@+id/etTitulo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -44,7 +44,7 @@
             android:text="Ingrese una descripción" />
 
         <EditText
-            android:id="@+id/editTextText9"
+            android:id="@+id/etDesc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -93,12 +93,12 @@
                 android:text="Fecha inicio" />
 
             <EditText
-                android:id="@+id/textDateStart"
+                android:id="@+id/etFechaInicio"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
-                android:inputType="text" />
+                android:inputType="date" />
         </LinearLayout>
 
         <LinearLayout
@@ -114,12 +114,12 @@
                 android:text="Fecha fin" />
 
             <EditText
-                android:id="@+id/editTextText10"
+                android:id="@+id/etFechaFin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
-                android:inputType="text" />
+                android:inputType="date" />
 
         </LinearLayout>
 
@@ -136,12 +136,12 @@
                 android:text="Cantidad de voluntarios" />
 
             <EditText
-                android:id="@+id/editTextText11"
+                android:id="@+id/ettCantidad"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
-                android:inputType="text" />
+                android:inputType="number" />
 
         </LinearLayout>
 
