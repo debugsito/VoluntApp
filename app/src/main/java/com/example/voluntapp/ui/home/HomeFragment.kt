@@ -1,5 +1,6 @@
 package com.example.voluntapp.ui.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,20 +10,17 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.voluntapp.PrincipalActivity
 import com.example.voluntapp.R
 import com.example.voluntapp.adapters.ProyectoAdapter
 import com.example.voluntapp.databinding.FragmentHomeBinding
 import com.example.voluntapp.models.ProyectoModel
+import com.example.voluntapp.project.DetalleProyectoActivity
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.FirebaseFirestore
 
 class HomeFragment : Fragment() {
 
-    private var _binding: FragmentHomeBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -45,22 +43,31 @@ class HomeFragment : Fragment() {
                 }
                 lstProyectos = snap!!.documents.map { documentSnapshot ->
                     ProyectoModel(
+                        documentSnapshot.id,
                         documentSnapshot["title"].toString(),
                         documentSnapshot["description"].toString(),
                         documentSnapshot["fecha_inicio"].toString(),
                         documentSnapshot["fecha_fin"].toString(),
                         documentSnapshot["cantidad"].toString(),
-                        (documentSnapshot["cantidad"].toString().toInt() - documentSnapshot["cantidad_inscritos"].toString().toInt()).toString(),
+                        documentSnapshot["cantidad_inscritos"].toString(),
                     )
                 }
-                rvProyectos.adapter = ProyectoAdapter(lstProyectos)
+                val adapter = ProyectoAdapter(lstProyectos)
+                rvProyectos.adapter = adapter
                 rvProyectos.layoutManager = LinearLayoutManager(requireContext())
+                adapter.setOnItemClickListener(object : ProyectoAdapter.OnItemClickListener {
+                    override fun onItemClick(proyecto: ProyectoModel) {
+                        // Abrir la actividad de detalles del proyecto
+                        val intent = Intent(requireContext(), DetalleProyectoActivity::class.java)
+                        intent.putExtra("proyecto", proyecto)
+                        startActivity(intent)
+                    }
+                })
             }
         return view
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null
     }
 }

@@ -6,15 +6,15 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.voluntapp.R
-import com.example.voluntapp.models.ProyectoModel
+import com.example.voluntapp.models.UserModel
 
-class ProyectoAdapter(private var lstProyectos: List<ProyectoModel>)
-    : RecyclerView.Adapter<ProyectoAdapter.ViewHolder>() {
+class VoluntarioAdapter(private var lstUsers: List<UserModel>)
+    : RecyclerView.Adapter<VoluntarioAdapter.ViewHolder>() {
 
     private var listener: OnItemClickListener? = null
 
     interface OnItemClickListener {
-        fun onItemClick(proyecto: ProyectoModel)
+        fun onItemClick(user: UserModel)
     }
 
     fun setOnItemClickListener(listener: OnItemClickListener) {
@@ -22,15 +22,16 @@ class ProyectoAdapter(private var lstProyectos: List<ProyectoModel>)
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val tvTitle: TextView = itemView.findViewById(R.id.tvProyecto)
-        val tvFechaInicio: TextView = itemView.findViewById(R.id.tvFechaInicio)
-        val tvVacantes: TextView = itemView.findViewById(R.id.tvVacantes)
+        val tvTitle: TextView = itemView.findViewById(R.id.tvNameP)
+        val tvDni: TextView = itemView.findViewById(R.id.tvDniP)
+        val tvEmail: TextView = itemView.findViewById(R.id.tvEmailP)
+        val tvEdad: TextView = itemView.findViewById(R.id.tvEdadP)
 
         init {
             itemView.setOnClickListener {
                 val position = adapterPosition
                 if (position != RecyclerView.NO_POSITION) {
-                    listener?.onItemClick(lstProyectos[position])
+                    listener?.onItemClick(lstUsers[position])
                 }
             }
         }
@@ -38,18 +39,19 @@ class ProyectoAdapter(private var lstProyectos: List<ProyectoModel>)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        val view = layoutInflater.inflate(R.layout.item_proyecto, parent, false)
+        val view = layoutInflater.inflate(R.layout.item_voluntario, parent, false)
         return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val proyecto = lstProyectos[position]
-        holder.tvTitle.text = proyecto.title
-        holder.tvFechaInicio.text = proyecto.fecha_inicio
-        holder.tvVacantes.text = (proyecto.cantidad.toInt() - proyecto.cantidad_inscritos.toInt()).toString()
+        val user = lstUsers[position]
+        holder.tvTitle.text = user.name
+        holder.tvDni.text = user.dni
+        holder.tvEmail.text = user.email
+        holder.tvEdad.text = user.edad
     }
 
     override fun getItemCount(): Int {
-        return lstProyectos.size
+        return lstUsers.size
     }
 }

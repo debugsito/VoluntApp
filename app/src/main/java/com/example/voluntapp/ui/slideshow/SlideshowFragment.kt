@@ -1,42 +1,63 @@
 package com.example.voluntapp.ui.slideshow
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.voluntapp.R
+import com.example.voluntapp.adapters.VoluntarioAdapter
 import com.example.voluntapp.databinding.FragmentSlideshowBinding
+import com.example.voluntapp.models.UserModel
+
+import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.firestore.FirebaseFirestore
 
 class SlideshowFragment : Fragment() {
 
-    private var _binding: FragmentSlideshowBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val slideshowViewModel =
-            ViewModelProvider(this).get(SlideshowViewModel::class.java)
+        val view: View =  inflater.inflate(R.layout.fragment_slideshow, container, false)
+        val rvUsers: RecyclerView = view.findViewById(R.id.rvUsers)
+        val db = FirebaseFirestore.getInstance()
+        var lstUsers: List<UserModel>
+        db.collection("users")
+            .addSnapshotListener{snap,e->
+                if(e!=null){
+                    Snackbar
+                        .make(view
+                            ,"Error al obtener la colección"
+                            , Snackbar.LENGTH_LONG).show()
+                    return@addSnapshotListener
+                }
+                lstUsers = snap!!.documents.map { documentSnapshot ->
+                    UserModel(
+                        documentSnapshot["name"].toString(),
+                        documentSnapshot["dni"].toString(),
+                        documentSnapshot["edad"].toString(),
+                        documentSnapshot["email"].toString(),
+                        documentSnapshot["resena"].toString(),
+                        documentSnapshot["uid"].toString(),
+                        documentSnapshot["perfil"].toString(),
+                        documentSnapshot["razon"].toString(),
+                    )
+                }
+                val adapter = VoluntarioAdapter(lstUsers)
+                rvUsers.adapter = adapter
+                rvUsers.layoutManager = LinearLayoutManager(requireContext())
 
-        _binding = FragmentSlideshowBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-
-        val textView: TextView = binding.textSlideshow
-        slideshowViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }
-        return root
+            }
+        return view
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null
     }
 }

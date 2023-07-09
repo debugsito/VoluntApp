@@ -36,6 +36,7 @@ class NewProject : AppCompatActivity() {
         val txtCantidad: EditText = findViewById(R.id.ettCantidad)
         btnPublicarNP.setOnClickListener{
             val nuevoProyecto = ProyectoModel(
+                "",
                 txtTitle.text.toString(),
                 txtDesc.text.toString(),
                 txtFechaInicio.text.toString(),
