@@ -3,6 +3,7 @@ package com.example.voluntapp.project
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import com.example.voluntapp.PrincipalActivity
@@ -18,6 +19,8 @@ class DetalleProyectoActivity : AppCompatActivity() {
         setContentView(R.layout.activity_detalle_proyecto)
 
         val proyecto = intent.getSerializableExtra("proyecto") as? ProyectoModel
+        val yapostulo = intent.getStringExtra("yapostulo")
+
         val tvTitle: TextView = findViewById(R.id.tvTitleProject)
         val tvDescription: TextView = findViewById(R.id.tvDescriptionProject)
         val tvFechaInicio: TextView = findViewById(R.id.tvFechaInicioProject)
@@ -38,6 +41,14 @@ class DetalleProyectoActivity : AppCompatActivity() {
         val projectUsersRef = db.collection("projectUsers")
         btnRegresar.setOnClickListener {
             startActivity(Intent(this, PrincipalActivity::class.java))
+        }
+        val userModel = MySharedPreferences.getUserModel()
+
+        if((yapostulo?.toInt() ?:0) >0){
+            btnPostular.visibility = View.GONE
+        }
+        if((userModel?.perfil ?:"") =="organizacion"){
+            btnPostular.visibility = View.GONE
         }
         btnPostular.setOnClickListener{
             val userModel = MySharedPreferences.getUserModel()

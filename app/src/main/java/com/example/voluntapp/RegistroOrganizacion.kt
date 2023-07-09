@@ -45,7 +45,7 @@ class RegistroOrganizacion : AppCompatActivity() {
                         txtEmail.text.toString(),
                         txtResena.text.toString(),
                         (obj.user?.uid ?: "-"),
-                        "voluntario",
+                        "organizacion",
                         txtRazon.text.toString()
                     )
                     collectionRef.add(nuevoUser)

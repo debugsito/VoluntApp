@@ -1,10 +1,11 @@
-package com.example.voluntapp
+package com.example. voluntapp
 
 import android.content.ClipData.Item
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.TextView
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
@@ -16,6 +17,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.example.voluntapp.databinding.ActivityPrincipalBinding
 import com.example.voluntapp.project.NewProject
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class PrincipalActivity : AppCompatActivity() {
 
@@ -27,7 +29,14 @@ class PrincipalActivity : AppCompatActivity() {
 
         binding = ActivityPrincipalBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        val userModel = MySharedPreferences.getUserModel()
+        if((userModel?.perfil ?:"") =="organizacion"){
+            hideItem()
+        }
+        if((userModel?.perfil ?:"") =="voluntario"){
+            val favicon: FloatingActionButton = findViewById(R.id.fab)
+            favicon.visibility = View.GONE
+        }
         setSupportActionBar(binding.appBarPrincipal.toolbar)
 
         binding.appBarPrincipal.fab.setOnClickListener { view ->
@@ -43,12 +52,20 @@ class PrincipalActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow
+                R.id.nav_home,
+                R.id.nav_gallery,
+                R.id.nav_slideshow,
+                R.id.nav_reporte
             ), drawerLayout
         )
 
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+    }
+    private fun hideItem() {
+        val navigationView = findViewById<NavigationView>(R.id.nav_view)
+        val navMenu: Menu = navigationView.menu
+        navMenu.findItem(R.id.nav_gallery)?.isVisible = false
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

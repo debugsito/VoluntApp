@@ -79,6 +79,7 @@ class GalleryFragment : Fragment() {
                                 // Abrir la actividad de detalles del proyecto
                                 val intent = Intent(requireContext(), DetalleProyectoActivity::class.java)
                                 intent.putExtra("proyecto", proyecto)
+                                intent.putExtra("yapostulo", "1")
                                 startActivity(intent)
                             }
                         })

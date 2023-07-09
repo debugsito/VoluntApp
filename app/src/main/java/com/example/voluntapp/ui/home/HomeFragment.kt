@@ -32,6 +32,8 @@ class HomeFragment : Fragment() {
         val rvProyectos: RecyclerView = view.findViewById(R.id.rvProyectos)
         val db = FirebaseFirestore.getInstance()
         var lstProyectos: List<ProyectoModel>
+        val collectionRef = db.collection("projectUsers")
+        val userModel = MySharedPreferences.getUserModel()
         db.collection("projects")
             .addSnapshotListener{snap,e->
                 if(e!=null){
@@ -58,9 +60,34 @@ class HomeFragment : Fragment() {
                 adapter.setOnItemClickListener(object : ProyectoAdapter.OnItemClickListener {
                     override fun onItemClick(proyecto: ProyectoModel) {
                         // Abrir la actividad de detalles del proyecto
-                        val intent = Intent(requireContext(), DetalleProyectoActivity::class.java)
-                        intent.putExtra("proyecto", proyecto)
-                        startActivity(intent)
+                        //preguntar si ya postuló al proyecto
+                        collectionRef
+                            .whereEqualTo("uidProject", proyecto.id)
+                            .whereEqualTo("uidUser", userModel?.uid)
+                            .get()
+                            .addOnSuccessListener { documents ->
+                                val count = documents.size()
+                                println("cantidad:"+count.toString())
+                                // Utiliza la variable "count" para obtener el número de registros encontrados
+                                if(count>0){
+                                    Snackbar
+                                        .make(view
+                                            ,"Ya postulaste a este proyecto."
+                                            , Snackbar.LENGTH_LONG).show()
+
+                                }
+                                val intent = Intent(requireContext(), DetalleProyectoActivity::class.java)
+                                intent.putExtra("proyecto", proyecto)
+                                intent.putExtra("yapostulo", count.toString())
+                                startActivity(intent)
+                            }
+                            .addOnFailureListener { exception ->
+                                Snackbar
+                                    .make(view
+                                        ,"Error al realizar la consulta: $exception"
+                                        , Snackbar.LENGTH_LONG).show()
+                            }
+
                     }
                 })
             }
